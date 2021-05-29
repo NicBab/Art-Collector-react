@@ -90,7 +90,13 @@ const Searchable = ({
  *
  * This component should be exported as default.
  */
-const Feature = ({ featuredResult }) => {
+const Feature = ({
+  featuredResult,
+  searchTerm,
+  searchValue,
+  setIsLoading,
+  setSearchResults,
+}) => {
   if (!featuredResult) {
     return <main id="feature"></main>;
   }
@@ -113,41 +119,127 @@ const Feature = ({ featuredResult }) => {
   } = featuredResult;
 
   return (
-    <>
-      <main id="feature">
-        <div className="object-feature">
-          <header>
-            <h3>OBJECT TITLE</h3>
-            <h4>WHEN IT IS DATED</h4>
-          </header>
-          <section className="facts">
-            <span className="title">FACT NAME</span>
-            <span className="content">FACT VALUE</span>
-            <span className="title">NEXT FACT NAME</span>
-            <span className="content">NEXT FACT VALUE</span>
-          </section>
+    <main id="feature">
+      <div className="object-feature">
+        <header>
+          <h3>{title}</h3>
+          <h4>{dated}</h4>
+        </header>
 
-          <section className="photos">
-            {/* <img src= IMAGE_URL alt= SOMETHING_WORTHWHILE /> */}
+        <section className="facts">
+          {culture ? (
+            <>
+              <span className="title">Culture</span>
+              <Searchable
+                searchTerm="culture"
+                searchValue={culture.toLowerCase()}
+                setIsLoading={setIsLoading}
+                setSearchResults={setSearchResults}
+              />
+            </>
+          ) : null}
 
-            {images && images.length > 0 ? (
-              images.map((image) => {
+          {medium ? (
+            <>
+              <span className="title">Medium</span>
+              <Searchable
+                searchTerm="medium"
+                searchValue={medium.toLowerCase()}
+                setIsLoading={setIsLoading}
+                setSearchResults={setSearchResults}
+              />
+            </>
+          ) : null}
+
+          {technique ? (
+            <>
+              <span className="title">Technique</span>
+              <Searchable
+                searchTerm="technique"
+                searchValue={technique.toLowerCase()}
+                setIsLoading={setIsLoading}
+                setSearchResults={setSearchResults}
+              />
+            </>
+          ) : null}
+
+          {dimensions ? (
+            <>
+              <span className="title">Dimensions</span>
+              <span className="content">{dimensions}</span>
+            </>
+          ) : null}
+
+          {people
+            ? people.map(function (person, index) {
                 return (
-                  <img
-                    src={image.baseimageurl}
-                    alt={image.baseimageurl}
-                    key={image.baseimageurl}
-                  />
+                  <Fragment key={`${index} + ${person.displayname}`}>
+                    <span className="title">People</span>
+                    <Searchable
+                      searchTerm="person"
+                      searchValue={person.displayname}
+                      setIsLoading={setIsLoading}
+                      setSearchResults={setSearchResults}
+                    />
+                  </Fragment>
                 );
               })
-            ) : primaryimageurl ? (
-              <img src={primaryimageurl} alt={primaryimageurl} />
-            ) : null}
-            
-          </section>
-        </div>
-      </main>
-    </>
+            : null}
+
+          {division ? (
+            <>
+              <span className="title">Division</span>
+              <span className="content">{division}</span>
+            </>
+          ) : null}
+
+          {contact ? (
+            <>
+              <span className="title">Contact</span>
+              <span className="content">{contact}</span>
+            </>
+          ) : null}
+
+          {creditline ? (
+            <>
+              <span className="title">Credit</span>
+              <span className="content">{creditline}</span>
+            </>
+          ) : null}
+
+          {description ? (
+            <>
+              <span className="title">Description</span>
+              <span className="content">{description}</span>
+            </>
+          ) : null}
+
+          {style ? (
+            <>
+              <span className="title">Style</span>
+              <span className="content">{style}</span>
+            </>
+          ) : null}
+        </section>
+
+        <section className="photos">
+          {/* <img src= IMAGE_URL alt= SOMETHING_WORTHWHILE /> */}
+          {images && images.length > 0 ? (
+            images.map((image) => {
+              return (
+                <img
+                  src={image.baseimageurl}
+                  alt={image.baseimageurl}
+                  key={image.baseimageurl}
+                />
+              );
+            })
+          ) : primaryimageurl ? (
+            <img src={primaryimageurl} alt={primaryimageurl} />
+          ) : null}
+        </section>
+      </div>
+    </main>
   );
 };
 
