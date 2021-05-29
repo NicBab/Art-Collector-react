@@ -41,7 +41,7 @@ const App = () => {
 
      {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties)*/}
      <Feature
-      featuredResults = {setFeaturedResults}
+      featuredResult = {setFeaturedResult}
       setIsLoading = {setIsLoading}
       setSearchResults = {setSearchResults} /> 
 

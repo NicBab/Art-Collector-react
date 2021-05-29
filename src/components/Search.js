@@ -95,9 +95,10 @@ const [classification, setClassification] = useState ('any');
         <option value="any">Any</option>
 
         {/* map over the classificationList, return an <option /> */}
-          {classificationList.map(() => {
+          {classificationList.map((classification, index) => {
             return (
-              <option value={ target.value }>
+              <option value={ classification.name } key={`${index} ${classification.name}`}>
+                {classification.name}
               </option>
             )
           })}
@@ -116,9 +117,10 @@ const [classification, setClassification] = useState ('any');
         <option value="any">Any</option>
 
         {/* map over the centuryList, return an <option /> */}
-        {centuryList.map(() => {
-            <option value={ target.value }>
-            </option>
+        {centuryList.map((century, index) => {
+          return <option value={ century.name } key={`${index} ${century.name}`}>
+                 {century.name}
+                </option>
         })}
         
       </select>
