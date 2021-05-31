@@ -185,7 +185,7 @@ const Feature = ({
                 );
               })
             : null}
-
+    
           {division ? (
             <>
               <span className="title">Division</span>
